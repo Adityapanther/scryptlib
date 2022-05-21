@@ -190,7 +190,7 @@ export function doCompileAsync(source: {
   path: string,
   content?: string,
 },
-settings: {
+  settings: {
     ast?: boolean,
     asm?: boolean,
     hex?: boolean,
@@ -266,7 +266,7 @@ export function compileAsync(source: {
   path: string,
   content?: string,
 },
-settings: {
+  settings: {
     ast?: boolean,
     asm?: boolean,
     hex?: boolean,
@@ -581,7 +581,7 @@ export function compile(
   const descDir = settings.outputDir || srcDir;
   const curWorkingDir = settings.cwd || srcDir;
   //dir that store ast,asm file
-  const outputDir = toOutputDir(descDir, sourcePath);
+  const outputDir = sourcePath;
 
   if (!existsSync(outputDir)) {
     mkdirSync(outputDir);
@@ -618,7 +618,7 @@ export function handleCompilerOutput(
   const srcDir = dirname(sourcePath);
   const sourceFileName = basename(sourcePath);
   const descDir = settings.outputDir || srcDir;
-  const outputDir = toOutputDir(descDir, sourcePath);
+  const outputDir = sourcePath;
   const outputFiles = {};
   try {
     // Because the output of the compiler on the win32 platform uses crlf as a newline， here we change \r\n to \n. make SYNTAX_ERR_REG、SEMANTIC_ERR_REG、IMPORT_ERR_REG work.
@@ -779,7 +779,7 @@ export function handleCompilerOutput(
 
     if (settings.desc) {
       settings.outputToFiles = true;
-      const outputFilePath = getOutputFilePath(descDir, 'desc');
+      const outputFilePath = getOutputFilePath(outputDir, 'desc');
       outputFiles['desc'] = outputFilePath;
       const description: ContractDescription = {
         version: CURRENT_CONTRACT_DESCRIPTION_VERSION,
